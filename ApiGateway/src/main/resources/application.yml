@@ -1,0 +1,35 @@
+
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+        lowerCaseServiceId: true
+      routes:
+        - id: product-microservice
+          uri: lb://PRODUCT-MICROSERVICE
+          predicates:
+          - Path=/api/products/**,/api/categories/**
+        - id: stock-microservice
+          uri: lb://STOCK-MICROSERVICE
+          predicates:
+            - Path=/api/stock/**
+        - id: booking-microservice
+          uri: lb://BOOKING-MICROSERVICE
+          predicates:
+            - Path=/api/booking/**
+    loadBalancer:
+      ribbon:
+        enabled: false
+
+eureka:
+  instance:
+    instanceId: ${spring.application.name}:${random.uuid}
+    preferIpAddress: true
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_CLIENT_SERVICEURL_DEFAULTZONE}
+

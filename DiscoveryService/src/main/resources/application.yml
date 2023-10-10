@@ -1,0 +1,15 @@
+#Puerto por defecto del Eureka server
+server:
+  port: 8761
+
+#Config Eureka Server
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+
+

@@ -1,13 +1,14 @@
 package com.BookingMicroservice.client;
 
-import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
-import org.springframework.cloud.netflix.feign.FeignClient;
-import org.springframework.web.bind.annotation.GetMapping;
+import com.BookingMicroservice.config.FeignClientConfig;
+import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
-@FeignClient(name = "stock-microservice")
+@FeignClient(name = "stock-microservice",url = "http://api-gateway:8080",configuration = FeignClientConfig.class)
 public interface StockClient {
-    @GetMapping("/api/stock/{code}")
+    @RequestMapping(method = RequestMethod.GET, value = "/api/stock/{code}")
     public boolean stockAvailable(@PathVariable String code);
 
 }

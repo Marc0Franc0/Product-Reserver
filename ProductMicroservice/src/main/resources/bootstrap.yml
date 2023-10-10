@@ -1,0 +1,27 @@
+#Config ConfigServer
+spring:
+  application:
+    name: product-microservice
+    config:
+      uri: ${SPRING_CLOUD_CONFIG_URI}
+      profile: ${SPRING_CLOUD_CONFIG_PROFILE}
+server:
+  port: 0
+#Config Actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
+eureka:
+  instance:
+    instanceId: ${spring.application.name}:${random.uuid}
+    preferIpAddress: true
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_CLIENT_SERVICEURL_DEFAULTZONE:http://localhost:8761/eureka/}
+    enabled: true
+    healthcheck:
+      enabled: true
+
