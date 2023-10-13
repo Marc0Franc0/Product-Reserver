@@ -30,3 +30,13 @@ eureka:
     healthcheck:
       enabled: true
 
+openapi:
+  service:
+    title: stock-microservice doc #title
+    version: 1.0.0
+    url: http://localhost:8080 #api gateway url
+springDoc:
+  api-docs:
+    path: /stock-microservice/v3/api-docs
+  swagger-ui:
+    path: /stock-microservice/swagger-ui.html

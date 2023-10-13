@@ -30,3 +30,13 @@ eureka:
     healthcheck:
       enabled: true
 
+openapi:
+  service:
+    title: booking-microservice doc #title
+    version: 1.0.0
+    url: http://localhost:8080 #api gateway url
+springDoc:
+  api-docs:
+    path: /booking-microservice/v3/api-docs
+  swagger-ui:
+    path: /booking-microservice/swagger-ui.html

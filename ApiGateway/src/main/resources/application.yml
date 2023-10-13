@@ -12,15 +12,15 @@ spring:
         - id: product-microservice
           uri: lb://PRODUCT-MICROSERVICE
           predicates:
-          - Path=/api/products/**,/api/categories/**
+          - Path=/api/products/**,/api/categories/**,/product-microservice/v3/api-docs
         - id: stock-microservice
           uri: lb://STOCK-MICROSERVICE
           predicates:
-            - Path=/api/stock/**
+            - Path=/api/stock/**,/stock-microservice/v3/api-docs
         - id: booking-microservice
           uri: lb://BOOKING-MICROSERVICE
           predicates:
-            - Path=/api/booking/**
+            - Path=/api/booking/**,/booking-microservice/v3/api-docs
     loadBalancer:
       ribbon:
         enabled: false
@@ -33,3 +33,30 @@ eureka:
     serviceUrl:
       defaultZone: ${EUREKA_CLIENT_SERVICEURL_DEFAULTZONE}
 
+server:
+  servlet:
+    context-path: /
+  port:
+    8080
+
+springDoc:
+  enable-native-support: true
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true
+    path: /swagger-ui.html
+    config-url: /v3/api-docs/swagger-config
+    urls:
+      - url: /v3/api-docs
+        name: API Gateway Microservice
+        primaryName: API Gateway Microservice
+      - url: /product-microservice/v3/api-docs
+        name: Product Microservice
+        primaryName: Product Microservice
+      - url: /booking-microservice/v3/api-docs
+        name: Booking Microservice
+        primaryName: Booking Microservice
+      - url: /stock-microservice/v3/api-docs
+        name: Stock Microservice
+        primaryName: Stock Microservice
