@@ -48,13 +48,13 @@ services:
     restart: always
     links:
       - config-server
-      - mysqldb
+      - stock-mysql
       - rabbitmq
       - discovery-service
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysqldb:3306/stockdb
+      SPRING_DATASOURCE_URL: jdbc:mysql://stock-mysql:3306/stock_db
       SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD:
+      SPRING_DATASOURCE_PASSWORD: root
       SPRING_CLOUD_CONFIG_PROFILE: prod
       SPRING_CLOUD_CONFIG_URI: http://config-server:8888
       SPRING_RABBITMQ_HOST: rabbitmq
@@ -68,13 +68,13 @@ services:
     restart: always
     links:
       - config-server
-      - mysqldb
+      - booking-mysql
       - rabbitmq
       - discovery-service
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysqldb:3306/bookingdb
+      SPRING_DATASOURCE_URL: jdbc:mysql://booking-mysql:3306/booking_db
       SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD:
+      SPRING_DATASOURCE_PASSWORD: root
       SPRING_CLOUD_CONFIG_PROFILE: prod
       SPRING_CLOUD_CONFIG_URI: http://config-server:8888
       SPRING_RABBITMQ_HOST: rabbitmq
@@ -99,21 +99,28 @@ services:
       - "27017:27017"
     volumes:
       - mongodb:/data/db
-  mysqldb:
-    container_name: mysql-container
+  booking-mysql:
+    container_name: booking-mysql-container
     image: mysql:8.0.26
     restart: always
     environment:
-      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
-    entrypoint:
-      sh -c "
-      echo 'CREATE DATABASE IF NOT EXISTS stockdb; CREATE DATABASE IF NOT EXISTS bookingdb;' > /docker-entrypoint-initdb.d/init.sql;
-      /usr/local/bin/docker-entrypoint.sh --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
-      "
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: booking_db
     ports:
       - "3306:3306"
     volumes:
-      - mysqldb:/data/db
+      - mysql:/data/db
+  stock-mysql:
+    container_name: stock-mysql-container
+    image: mysql:8.0.26
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: stock_db
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql:/data/db
 volumes:
   mongodb:
-  mysqldb:
+  mysql:
