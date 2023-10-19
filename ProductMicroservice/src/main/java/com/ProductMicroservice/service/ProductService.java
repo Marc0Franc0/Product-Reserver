@@ -1,27 +1,24 @@
 package com.ProductMicroservice.service;
 
+import com.ProductMicroservice.dto.ProductDTO;
 import com.ProductMicroservice.model.Product;
-import com.ProductMicroservice.repository.ProductRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
-public class ProductService {
-    @Autowired
-    ProductRepository productRepository;
-    public List<Product> getAll(){
-        return productRepository.findAll();
-    }
+public interface ProductService {
+     Optional<List<Product>> getAll();
 
-    public Product create(Product product) {
-        return productRepository.save(
-                new Product(
-                        product.getName(),
-                        product.getDescription(),
-                        product.getUnitPrice()
-                )
-        );
-    }
+     Optional<Product> getById(String id);
+
+     Product create(ProductDTO productDTO);
+
+     boolean getExistence(String code);
+
+     Product update(String id, ProductDTO productDTO);
+
+     Optional<Product> deleteById(String id);
+
 }
