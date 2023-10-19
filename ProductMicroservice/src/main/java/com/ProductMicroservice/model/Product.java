@@ -7,6 +7,7 @@ import org.springframework.data.mongodb.core.mapping.MongoId;
 @Document(collection = "products")
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
 @ToString
 public class Product {
     @Id
