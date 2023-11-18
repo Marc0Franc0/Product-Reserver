@@ -10,7 +10,6 @@
 	</parent>
 	<groupId>com</groupId>
 	<artifactId>DiscoveryService</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
 	<name>Discovery Service</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
