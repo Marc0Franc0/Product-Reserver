@@ -10,7 +10,6 @@
 	</parent>
 	<groupId>com</groupId>
 	<artifactId>ApiGateway</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
 	<name>ApiGateway</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
